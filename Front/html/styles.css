@@ -1,0 +1,114 @@
+.hor-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    align-content: space-around;
+    gap: 5px;
+    width: 50vw;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 15px;
+    margin-top: 80px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 50px 5px rgba(0, 23, 153, 0.1);
+}
+
+select {
+
+    cursor: pointer;
+
+    appearance: none;
+    border-radius: 5px;
+    padding: 5px;
+
+    text-anchor: middle;
+    direction: rtl;
+    color: rgb(26, 73, 75);
+    text-transform: capitalize;
+    font-weight: bold;
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+option {
+    
+    color: rgb(26, 73, 75);
+    text-transform: capitalize;
+    font-weight: bold;
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#city {
+
+    margin-right: 20px;
+}
+
+#show-button {
+
+    margin-right: 20px;
+    cursor: pointer;
+
+    padding: 5px;
+    appearance: none;
+    height: 30px;
+    line-height: 100%;
+    border-radius: 5px;
+    /* border: 0; */
+    background-color: aliceblue;
+
+    color: rgb(26, 73, 75);
+    text-transform: capitalize;
+    font-weight: bold;
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.hor-container * {
+    flex: auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 50vw;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 50px 5px rgba(0, 23, 153, 0.1);
+}
+
+.timing-tuple {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    width: 95%;
+    height: 25px;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+p {
+    color: rgb(26, 73, 75);
+    text-transform: capitalize;
+    font-weight: bold;
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.time {
+    flex: auto;
+    margin-right: 10px;
+    height: 5px;
+    line-height: 1px;
+}
+
+.title {
+    margin-right: 10px;
+    height: 5px;
+    line-height: 1px;
+}

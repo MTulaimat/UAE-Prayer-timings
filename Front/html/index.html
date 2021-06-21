@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Prayer Timings</title>
+</head>
+
+<body>
+
+    <div class="hor-container">
+
+        <select id="years" name="year">
+            <option value="title">السنة</option>
+            <option value="1440">1440</option>
+            <option value="1441">1441</option>
+            <option value="1442">1442</option>
+            <option value="1442">1443</option>
+            <option value="1442">1444</option>
+            <option value="1442">1445</option>
+            <option value="1442">1446</option>
+        </select>
+
+        <select id="months" name="month">
+            <option value="title">الشهر</option>
+            <option value="01">ٱلْمُحَرَّم</option>
+            <option value="02">صَفَر</option>
+            <option value="03">رَبِيع ٱلْأَوَّل</option>
+            <option value="04">رَبِيع ٱلثَّانِي</option>
+            <option value="05">جُمَادَىٰ ٱلْأُولَىٰ</option>
+            <option value="06">جُمَادَىٰ ٱلثَّانِيَة</option>
+            <option value="07">رَجَب</option>
+            <option value="08">شَعْبَان</option>
+            <option value="09">رَمَضَان</option>
+            <option value="10">شَوَّال</option>
+            <option value="11">ذُو ٱلْقَعْدَة</option>
+            <option value="12">ذُو ٱلْحِجَّة</option>
+        </select>
+
+        <select id="days" name="day">
+            <option value="title">اليوم</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+        </select>
+
+        <select id="city" name="city">
+            <option value="title">المدينة</option>
+            <option value="35">أبو ظبي</option>
+            <option value="1">دبي</option>
+            <option value="4">الشارقة</option>
+            <option value="16">عجمان</option>
+            <option value="20">أم القيوين</option>
+            <option value="28">رأس الخيمة</option>
+            <option value="33">فجيرة</option>
+        </select>
+
+        <button id="show-button" class="main-button">!عرض</button>
+
+    </div>
+
+    <div id="timings-container" class="container">
+        <div class="timing-tuple">
+            <p class="time">الوقت</p>
+            <p class="title">الصلاة</p>
+        </div>
+        <div class="timing-tuple">
+            <p class="time">الوقت</p>
+            <p class="title">الصلاة</p>
+        </div>
+        <div class="timing-tuple">
+            <p class="time">الوقت</p>
+            <p class="title">الصلاة</p>
+        </div>
+        <div class="timing-tuple">
+            <p class="time">الوقت</p>
+            <p class="title">الصلاة</p>
+        </div>
+        <div class="timing-tuple">
+            <p class="time">الوقت</p>
+            <p class="title">الصلاة</p>
+        </div>
+        <div class="timing-tuple">
+            <p class="time">الوقت</p>
+            <p class="title">الصلاة</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
+    <script src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script src="https://raw.githubusercontent.com/xsoh/moment-hijri/master/moment-hijri.js"></script>
+
+    <script>
+        var urlBase = "http://localhost:8090/api/";
+        $(function () {
+
+            var cities = {
+
+                sharjah: 4,
+                dubai: 1,
+                ajman: 16,
+                "umm al quwain": 20,
+                fujairah: 33,
+                "abu dhabi": 35,
+                "ras al khaimah": 28
+            }
+
+            var citySelect = $("#city");
+            var monthSelect = $("#months");
+            var yearSelect = $("#years");
+            var daysSelect = $("#days");
+            var showButton = $("#show-button");
+
+            function getHijriDate(gregorianDate) {
+                var hijriRequest = new XMLHttpRequest();
+                hijriRequest.open("GET", "http://api.aladhan.com/gToH?date=" + gregorianDate);
+                hijriRequest.onload = function () {
+                    var requestDetail = JSON.parse(hijriRequest.responseText);
+                    var date = requestDetail.data.hijri.date.split("-"); //d-m-y
+
+                    daysSelect.val(date[0]);
+                    monthSelect.val(date[1]);
+                    yearSelect.val(date[2]);
+                }
+                
+                hijriRequest.send();
+            }
+            
+            var today = new Date();
+            var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();            
+            getHijriDate(date);
+
+            var fillInPage = (function () {
+                var updateCityText = function (geoipResponse) {
+                    var cityName = geoipResponse.city.names.en || 'your city';
+
+                    citySelect.val(cities[cityName.toLowerCase()]);
+                };
+
+                var onSuccess = function (geoipResponse) {
+                    updateCityText(geoipResponse);
+                };
+
+                var onError = function (error) {
+                    console.log("Error getting geo location!");
+                };
+
+                return function () {
+                    if (typeof geoip2 !== 'undefined') {
+                        geoip2.city(onSuccess, onError);
+                    }
+                };
+            }());
+
+            fillInPage();
+
+            // moment.locale('ar-SA'); // 2- Set the global locale to `ar-SA`
+            // m = moment();
+            // m.format('iYYYY/iM/iD HH:mm:ss'); //3- use it normally 
+            // console.log(m);
+
+            monthSelect.change(() => {
+
+                getNumberOfDays();
+            })
+
+            yearSelect.change(() => {
+
+                getNumberOfDays();
+            })
+
+            showButton.click(() => {
+
+                getPrayerTimes();
+            })
+
+            function getPrayerTimes() {
+
+                var all = citySelect.val() + yearSelect.val() + monthSelect.val() + daysSelect.val();
+                if (all.includes("title")) {
+
+                    alert("Make sure to select from all lists!");
+                    return;
+                }
+
+                $.ajax({
+                    method: "GET",
+                    url: urlBase + "GetPrayerTimes",
+                    data: {
+
+                        cityId: citySelect.val(),
+                        countryId: 1,
+                        date: yearSelect.val() + "/" + monthSelect.val() + "/" + daysSelect.val(),
+                        hijriOrGreg: 2
+                    },
+
+                    success: function (res) {
+                        updatePrayerTimes(res);
+                    },
+                    catch: function (err) {
+                        console.log("ERROR: " + err);
+                    },
+                });
+            }
+
+            function getNumberOfDays() {
+
+                var selectedMonth = monthSelect.find(":selected").val();
+                var selectedYear = yearSelect.find(":selected").val();
+
+                if (selectedMonth == "title" || selectedYear == "title") {
+
+                    // alert("Please choose a month and a year");
+                    return;
+                }
+
+                $.ajax({
+                    method: "GET",
+                    url: urlBase + "GetNumberOfDays",
+                    data: {
+
+                        month: selectedMonth,
+                        year: selectedYear
+                    },
+
+                    success: function (res) {
+                        updateDaysOptions(res.Count);
+                    },
+                    catch: function (err) {
+                        console.log("ERROR: " + err);
+                    },
+                });
+            }
+
+            function updatePrayerTimes(res) {
+
+                var timingContainer = $("#timings-container");
+
+                $(res).find("#dt2 tr").each(function (i) {
+
+                    var elem = $(this);
+                    var tuple = timingContainer.find(`:nth-child(${i})`);
+
+                    var title = elem.find(":nth-child(1)").text();
+                    var time = elem.find(":nth-child(2)").text();
+
+                    var splitIndex = i === 2 ? 2 : 1;
+
+                    tuple.find(".title").text(title.split('\n')[splitIndex]);
+                    tuple.find(".time").text(time);
+                });
+            }
+
+            function updateDaysOptions(count) {
+
+                var allDaysCount = daysSelect.children().length - 1;
+                if (allDaysCount == count) return; //no need to update
+
+                var selected = daysSelect.val();
+
+                daysSelect.empty();
+                daysSelect.append(
+                    $('<option/>')
+                    .text("اليوم")
+                );
+
+                for (let i = 0; i < count; i++) {
+
+                    daysSelect.append(
+                        $('<option/>')
+                        .attr("value", i + 1)
+                        .text(i + 1)
+                    );
+                }
+
+                daysSelect.val(daysSelect.find('option:first').val());
+            }
+        })
+    </script>
+
+</body>
+
+</html>

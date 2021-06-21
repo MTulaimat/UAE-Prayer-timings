@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  nginx:
+    build:
+        context: ./Front
+        dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    command: 'bash -c "nginx -g ''daemon off;''"'
+  node:
+    build: 
+        context: ./Back
+        dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    ports:
+      - '8090:8090'
+    command: 'npm start'
+networks: 
+    app: 
+        driver: bridge
