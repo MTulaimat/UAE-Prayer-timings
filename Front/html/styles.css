@@ -8,20 +8,35 @@
     max-width: 500px;
     margin: 0 auto;
     padding: 15px;
-    margin-top: 80px;
+    margin-top: 15vh;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 50px 5px rgba(0, 23, 153, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.hor-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+    z-index: -2;
+    transition: box-shadow .2s;
+    box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hor-container:hover:before {
+    box-shadow: 0px 0px 80px 25px rgba(0, 0, 0, 0.1);
 }
 
 select {
-
     cursor: pointer;
-
     appearance: none;
     border-radius: 5px;
     padding: 5px;
-
     text-anchor: middle;
     direction: rtl;
     color: rgb(26, 73, 75);
@@ -31,7 +46,6 @@ select {
 }
 
 option {
-    
     color: rgb(26, 73, 75);
     text-transform: capitalize;
     font-weight: bold;
@@ -39,15 +53,12 @@ option {
 }
 
 #city {
-
     margin-right: 20px;
 }
 
 #show-button {
-
     margin-right: 20px;
     cursor: pointer;
-
     padding: 5px;
     appearance: none;
     height: 30px;
@@ -55,7 +66,6 @@ option {
     border-radius: 5px;
     /* border: 0; */
     background-color: aliceblue;
-
     color: rgb(26, 73, 75);
     text-transform: capitalize;
     font-weight: bold;
@@ -79,7 +89,25 @@ option {
     margin-top: 20px;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 50px 5px rgba(0, 23, 153, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+    z-index: -2;
+    transition: box-shadow .2s;
+    box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container:hover:before {
+    box-shadow: 0px 0px 80px 25px rgba(0, 0, 0, 0.1);
 }
 
 .timing-tuple {
@@ -91,6 +119,12 @@ option {
     height: 25px;
     padding: 10px;
     background-color: aliceblue;
+    transition: width .15s, background-color .3s;
+}
+
+.timing-tuple:hover {
+    width: 85%;
+    background-color: rgb(212, 225, 238);
 }
 
 p {
