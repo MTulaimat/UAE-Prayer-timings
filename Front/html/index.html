@@ -156,12 +156,12 @@
                     monthSelect.val(date[1]);
                     yearSelect.val(date[2]);
                 }
-                
+
                 hijriRequest.send();
             }
-            
+
             var today = new Date();
-            var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();            
+            var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             getHijriDate(date);
 
             var fillInPage = (function () {
@@ -169,6 +169,9 @@
                     var cityName = geoipResponse.city.names.en || 'your city';
 
                     citySelect.val(cities[cityName.toLowerCase()]);
+                    setTimeout(() => {
+                        getPrayerTimes();
+                    }, 2000);
                 };
 
                 var onSuccess = function (geoipResponse) {
@@ -187,11 +190,6 @@
             }());
 
             fillInPage();
-
-            // moment.locale('ar-SA'); // 2- Set the global locale to `ar-SA`
-            // m = moment();
-            // m.format('iYYYY/iM/iD HH:mm:ss'); //3- use it normally 
-            // console.log(m);
 
             monthSelect.change(() => {
 
