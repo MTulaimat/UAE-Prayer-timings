@@ -16,13 +16,11 @@
 
         <select id="years" name="year">
             <option value="title">السنة</option>
-            <option value="1440">1440</option>
             <option value="1441">1441</option>
             <option value="1442">1442</option>
             <option value="1442">1443</option>
             <option value="1442">1444</option>
             <option value="1442">1445</option>
-            <option value="1442">1446</option>
         </select>
 
         <select id="months" name="month">
@@ -244,7 +242,7 @@
 
             showButton.click(() => {
 
-                getPrayerTimes(true);
+                getPrayerTimes(true, false);
             })
 
             function getHijriDate() {
@@ -268,7 +266,7 @@
                         monthSelect.val(res.month);
                         yearSelect.val(res.year);
 
-                        getPrayerTimes(false);
+                        getPrayerTimes(false, true);
                     },
                     catch: function (err) {
                         console.log("ERROR: " + err);
@@ -276,9 +274,10 @@
                 });
             }
 
-            function getPrayerTimes(doAlert) {
+            function getPrayerTimes(doAlert, isHijri) {
 
                 var all = citySelect.val() + yearSelect.val() + monthSelect.val() + daysSelect.val();
+                console.log(all);
                 if (all.includes("title")) {
 
                     if (doAlert) alert("Make sure to select from all lists!");
@@ -295,7 +294,7 @@
                         year: yearSelect.val(),
                         lat: cities[citySelect.val()][0],
                         long: cities[citySelect.val()][1],
-                        isHijri: true
+                        isHijri: isHijri
                     },
 
                     success: function (res) {
@@ -416,6 +415,7 @@
                 daysSelect.append(
                     $('<option/>')
                     .text("اليوم")
+                    .attr("value", 'title')
                 );
 
                 for (let i = 0; i < count; i++) {
@@ -428,6 +428,7 @@
                 }
 
                 daysSelect.val(daysSelect.find('option:first').val());
+                // daysSelect.val(daysSelect.children.eq(0).val());
             }
         })
     </script>

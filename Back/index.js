@@ -46,7 +46,7 @@ router.route('/GetHijriDate').get((request, response) => {
     var query = request.query;
     var geoDate = {
 
-        day: 1*(query.day) -1,
+        day: 1*(query.day),
         month: 1*(query.month) +1,
         year: 1*(query.year)
     }
@@ -61,6 +61,8 @@ router.route('/GetPrayerTimes').get((request, response) => {
     var query = request.query;
     var currentDate;
 
+    // console.log(query.year);
+
     if (query.isHijri) {
 
         currentDate = gregorianFromHijri(query);
@@ -74,6 +76,7 @@ router.route('/GetPrayerTimes').get((request, response) => {
         }
     }
 
+    console.log(currentDate);
     var times = prayTimesObj.getTimes([1 * currentDate.year, 1 * currentDate.month, 1 * currentDate.day], [1 * query.lat, 1 * query.long], 4);
 
     response.json(times);
@@ -89,8 +92,9 @@ function gregorianFromHijri(query) {
     var month = query.month;
     var year = query.year;
 
+    if (day.length == 2 && day[0] == 0) day = day[1];  
     if (month.length == 2 && month[0] == 0) month = month[1];  
-
+    
     var geoDate;
 
     csvRows.forEach(row => {
