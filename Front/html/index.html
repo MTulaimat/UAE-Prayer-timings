@@ -78,13 +78,13 @@
 
         <select id="city" name="city">
             <option value="title">المدينة</option>
-            <option value="35">أبو ظبي</option>
-            <option value="1">دبي</option>
-            <option value="4">الشارقة</option>
-            <option value="16">عجمان</option>
-            <option value="20">أم القيوين</option>
-            <option value="28">رأس الخيمة</option>
-            <option value="33">فجيرة</option>
+            <option value="abu dhabi">أبو ظبي</option>
+            <option value="dubai">دبي</option>
+            <option value="sharjah">الشارقة</option>
+            <option value="ajman">عجمان</option>
+            <option value="umm al quwain">أم القيوين</option>
+            <option value="ras al khaimah">رأس الخيمة</option>
+            <option value="fujairah">فجيرة</option>
         </select>
 
         <button id="show-button" class="main-button">!عرض</button>
@@ -92,29 +92,41 @@
     </div>
 
     <div id="timings-container" class="container">
-        <div class="timing-tuple">
-            <p class="time">الوقت</p>
-            <p class="title">الصلاة</p>
+        <div class="timing-tuple2">
+            <p class="time"></p>
+            <p class="title"></p>
         </div>
         <div class="timing-tuple">
-            <p class="time">الوقت</p>
-            <p class="title">الصلاة</p>
+            <p class="time"></p>
+            <p class="title"></p>
+        </div>
+        <div class="timing-tuple2">
+            <p class="time"></p>
+            <p class="title"></p>
         </div>
         <div class="timing-tuple">
-            <p class="time">الوقت</p>
-            <p class="title">الصلاة</p>
+            <p class="time"></p>
+            <p class="title"></p>
         </div>
         <div class="timing-tuple">
-            <p class="time">الوقت</p>
-            <p class="title">الصلاة</p>
+            <p class="time"></p>
+            <p class="title"></p>
+        </div>
+        <div class="timing-tuple2">
+            <p class="time"></p>
+            <p class="title"></p>
         </div>
         <div class="timing-tuple">
-            <p class="time">الوقت</p>
-            <p class="title">الصلاة</p>
+            <p class="time"></p>
+            <p class="title"></p>
         </div>
         <div class="timing-tuple">
-            <p class="time">الوقت</p>
-            <p class="title">الصلاة</p>
+            <p class="time"></p>
+            <p class="title"></p>
+        </div>
+        <div class="timing-tuple2">
+            <p class="time"></p>
+            <p class="title"></p>
         </div>
     </div>
 
@@ -125,19 +137,48 @@
     <script src="https://raw.githubusercontent.com/xsoh/moment-hijri/master/moment-hijri.js"></script>
 
     <script>
-        var urlBase = `${window.location.origin}/api/`;
+        // var urlBase = `${window.location.origin}/api/`;
+        var urlBase = `http://localhost:8090/api/`;
         $(function () {
 
             var cities = {
 
-                sharjah: 4,
-                dubai: 1,
-                ajman: 16,
-                "umm al quwain": 20,
-                fujairah: 33,
-                "abu dhabi": 35,
-                "ras al khaimah": 28
+                title: [25.3462, 55.4211],
+                sharjah: [25.3462, 55.4211],
+                dubai: [25.2048, 55.2708],
+                ajman: [25.4052, 55.5136],
+                "umm al quwain": [25.5325, 55.5492],
+                fujairah: [25.4111, 56.2482],
+                "abu dhabi": [24.4539, 54.3773],
+                "ras al khaimah": [25.6741, 55.9804]
             }
+
+            var timingNames = {
+
+                imsak: "الامساك",
+                fajr: "الفجر",
+                sunrise: "الشروق",
+                dhuhr: "الظهر",
+                asr: "العصر",
+                sunset: "الغروب",
+                maghrib: "المغرب",
+                isha: "العشاء",
+                midnight: 'منتصف الليل'
+            }
+
+            // var todaysTimes = prayTimes.getTimes([2021, 6, 23], cities.sharjah, 4);
+            // console.log(todaysTimes.maghrib);
+
+            // var cities = {
+
+            //     sharjah: 4,
+            //     dubai: 1,
+            //     ajman: 16,
+            //     "umm al quwain": 20,
+            //     fujairah: 33,
+            //     "abu dhabi": 35,
+            //     "ras al khaimah": 28
+            // }
 
             var citySelect = $("#city");
             var monthSelect = $("#months");
@@ -145,32 +186,32 @@
             var daysSelect = $("#days");
             var showButton = $("#show-button");
 
-            function getHijriDate(gregorianDate) {
-                var hijriRequest = new XMLHttpRequest();
-                hijriRequest.open("GET", "http://api.aladhan.com/gToH?date=" + gregorianDate);
-                hijriRequest.onload = function () {
-                    var requestDetail = JSON.parse(hijriRequest.responseText);
-                    var date = requestDetail.data.hijri.date.split("-"); //d-m-y
+            // function getHijriDate(gregorianDate) {
+            //     var hijriRequest = new XMLHttpRequest();
+            //     hijriRequest.open("GET", "http://api.aladhan.com/gToH?date=" + gregorianDate);
+            //     hijriRequest.onload = function () {
+            //         var requestDetail = JSON.parse(hijriRequest.responseText);
+            //         var date = requestDetail.data.hijri.date.split("-"); //d-m-y
 
-                    daysSelect.val(date[0]);
-                    monthSelect.val(date[1]);
-                    yearSelect.val(date[2]);
-                }
+            //         daysSelect.val(date[0]);
+            //         monthSelect.val(date[1]);
+            //         yearSelect.val(date[2]);
+            //     }
 
-                hijriRequest.send();
-            }
+            //     hijriRequest.send();
+            // }
 
-            var today = new Date();
-            var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-            getHijriDate(date);
+            // var today = new Date();
+            // var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            // getHijriDate(date);
 
             var fillInPage = (function () {
                 var updateCityText = function (geoipResponse) {
                     var cityName = geoipResponse.city.names.en || 'your city';
 
-                    citySelect.val(cities[cityName.toLowerCase()]);
+                    citySelect.val(cityName.toLowerCase());
                     setTimeout(() => {
-                        getPrayerTimes();
+                        getHijriDate();
                     }, 2000);
                 };
 
@@ -203,15 +244,44 @@
 
             showButton.click(() => {
 
-                getPrayerTimes();
+                getPrayerTimes(true);
             })
 
-            function getPrayerTimes() {
+            function getHijriDate() {
+
+                var currentDate = new Date();
+
+                $.ajax({
+                    method: "GET",
+                    url: urlBase + "GetHijriDate",
+                    data: {
+                        day: currentDate.getDate(),
+                        month: currentDate.getMonth(),
+                        year: currentDate.getFullYear(),
+                    },
+
+                    success: function (res) {
+
+                        console.log(res);
+
+                        daysSelect.val(res.day);
+                        monthSelect.val(res.month);
+                        yearSelect.val(res.year);
+
+                        getPrayerTimes(false);
+                    },
+                    catch: function (err) {
+                        console.log("ERROR: " + err);
+                    },
+                });
+            }
+
+            function getPrayerTimes(doAlert) {
 
                 var all = citySelect.val() + yearSelect.val() + monthSelect.val() + daysSelect.val();
                 if (all.includes("title")) {
 
-                    alert("Make sure to select from all lists!");
+                    if (doAlert) alert("Make sure to select from all lists!");
                     return;
                 }
 
@@ -220,10 +290,12 @@
                     url: urlBase + "GetPrayerTimes",
                     data: {
 
-                        cityId: citySelect.val(),
-                        countryId: 1,
-                        date: yearSelect.val() + "/" + monthSelect.val() + "/" + daysSelect.val(),
-                        hijriOrGreg: 2
+                        day: daysSelect.val(),
+                        month: monthSelect.val(),
+                        year: yearSelect.val(),
+                        lat: cities[citySelect.val()][0],
+                        long: cities[citySelect.val()][1],
+                        isHijri: true
                     },
 
                     success: function (res) {
@@ -233,6 +305,25 @@
                         console.log("ERROR: " + err);
                     },
                 });
+
+                // $.ajax({
+                //     method: "GET",
+                //     url: urlBase + "GetPrayerTimes",
+                //     data: {
+
+                //         cityId: citySelect.val(),
+                //         countryId: 1,
+                //         date: yearSelect.val() + "/" + monthSelect.val() + "/" + daysSelect.val(),
+                //         hijriOrGreg: 2
+                //     },
+
+                //     success: function (res) {
+                //         updatePrayerTimes(res);
+                //     },
+                //     catch: function (err) {
+                //         console.log("ERROR: " + err);
+                //     },
+                // });
             }
 
             function getNumberOfDays() {
@@ -264,24 +355,55 @@
                 });
             }
 
-            function updatePrayerTimes(res) {
+            function updatePrayerTimes(timings) {
 
                 var timingContainer = $("#timings-container");
+                var i = 0;
+                for (const key in timings) {
 
-                $(res).find("#dt2 tr").each(function (i) {
+                    if (timings.hasOwnProperty(key)) {
 
-                    var elem = $(this);
-                    var tuple = timingContainer.find(`:nth-child(${i})`);
+                        var elem = timingContainer.children().eq(i);
+                        elem.find(".title").text(timingNames[key]);
+                        elem.find(".time").text(timings[key]);
+                        i++;
+                    }
+                }
 
-                    var title = elem.find(":nth-child(1)").text();
-                    var time = elem.find(":nth-child(2)").text();
+                // timingContainer.children().each(function (i) {
 
-                    var splitIndex = i === 2 ? 2 : 1;
+                //     var elem = $(this);
 
-                    tuple.find(".title").text(title.split('\n')[splitIndex]);
-                    tuple.find(".time").text(time);
-                });
+                //     for (const key in timings) {
+
+                //         if (timings.hasOwnProperty(key)) {
+
+                //             console.log(timingNames[key]);
+                //             elem.find(".title").text(timingNames[key]);
+                //             elem.find(".time").text(timings[key]);
+                //         }
+                //     }
+                // })
             }
+
+            // function updatePrayerTimes(res) {
+
+            //     var timingContainer = $("#timings-container");
+
+            //     $(res).find("#dt2 tr").each(function (i) {
+
+            //         var elem = $(this);
+            //         var tuple = timingContainer.find(`:nth-child(${i})`);
+
+            //         var title = elem.find(":nth-child(1)").text();
+            //         var time = elem.find(":nth-child(2)").text();
+
+            //         var splitIndex = i === 2 ? 2 : 1;
+
+            //         tuple.find(".title").text(title.split('\n')[splitIndex]);
+            //         tuple.find(".time").text(time);
+            //     });
+            // }
 
             function updateDaysOptions(count) {
 

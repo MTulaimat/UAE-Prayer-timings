@@ -8,7 +8,7 @@
     max-width: 425px;
     margin: 0 auto;
     padding: 15px;
-    margin-top: 15vh;
+    margin-top: 10vh;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     position: relative;
@@ -118,13 +118,29 @@ option {
     width: 95%;
     height: 25px;
     padding: 10px;
+    background-color: rgb(201, 230, 255);
+    transition: width .15s, background-color .3s;
+}
+
+.timing-tuple2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    width: 95%;
+    height: 25px;
+    padding: 10px;
     background-color: aliceblue;
     transition: width .15s, background-color .3s;
 }
 
-.timing-tuple:hover {
+.timing-tuple2:hover {
     width: 85%;
     background-color: rgb(212, 225, 238);
+}
+.timing-tuple:hover {
+    width: 85%;
+    background-color: rgb(183, 214, 241);
 }
 
 p {
