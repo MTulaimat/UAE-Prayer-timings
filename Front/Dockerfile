@@ -8,4 +8,5 @@ COPY ./html /usr/share/nginx/html
 VOLUME /usr/share/nginx/html
 VOLUME /etc/nginx
 
-# CMD [nginx-debug, '-g', 'daemon off;']
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

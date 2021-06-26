@@ -8,3 +8,7 @@ RUN npm install
 
 COPY . .
 VOLUME /app
+
+ENV NODE_ENV=production
+EXPOSE 8090 
+CMD ["npm", "start"]
