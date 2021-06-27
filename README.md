@@ -18,7 +18,6 @@ docker network create app
 docker run --name node \
 --network app \
 --publish 8090:8090 \
-uae-prayer-timings_node
 mtulaimat/uae-praying-times:back-latest
 
 docker run --name nginx \
