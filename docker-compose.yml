@@ -1,22 +1,20 @@
-version: '3.7'
+version: "3.7"
 
 services:
   nginx:
-    build:
-        context: ./Front
-        dockerfile: Dockerfile
+    image: mtulaimat/uae-praying-times:front-latest
     ports:
-      - '80:80'
-    command: 'bash -c "nginx -g ''daemon off;''"'
+      - "80:80"
+    networks:
+      - app
+
   node:
-    build: 
-        context: ./Back
-        dockerfile: Dockerfile
-    environment:
-      - NODE_ENV=production
+    image: mtulaimat/uae-praying-times:back-latest
     ports:
-      - '8090:8090'
-    command: 'npm start'
-networks: 
-    app: 
-        driver: bridge
+      - "8090:8090"
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
